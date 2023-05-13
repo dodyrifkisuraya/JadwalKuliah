@@ -1,14 +1,12 @@
 package com.dorizu.jadwalkuliah.data.source.local.entity
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 @Entity(tableName = "schedule")
 data class ScheduleEntity(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @ColumnInfo(name = "key")
-    val key: Int,
+    val key: String,
 
     @ColumnInfo(name = "class_key")
     val classKey: String,
@@ -24,4 +22,24 @@ data class ScheduleEntity(
 
     @ColumnInfo(name = "end_time")
     val endTime: String,
+)
+
+data class ScheduleWithRelations(
+    @Embedded val schedule: ScheduleEntity,
+
+    @Relation(parentColumn = "class_key", entityColumn = "class_code")
+    val classEntity: CollageClassEntity?,
+
+    @Relation(parentColumn = "lecture_key", entityColumn = "nip")
+    val lecturerEntity: LecturerEntity?,
+
+    @Relation(parentColumn = "course_key", entityColumn = "course_code")
+    val courseEntity: CourseEntity?,
+
+    @Relation(
+        parentColumn = "key",
+        entityColumn = "nim",
+        associateBy = Junction(StudentJoinSchedule::class)
+    )
+    val listStudent: List<StudentEntity>
 )

@@ -1,21 +1,31 @@
 package com.dorizu.jadwalkuliah.data.source.local.entity
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 @Entity(tableName = "student")
 data class StudentEntity(
     @PrimaryKey
     @ColumnInfo(name = "nim")
-    val nim: String,
+    var nim: String,
 
     @ColumnInfo(name = "name")
-    val name: String,
+    var name: String,
 
     @ColumnInfo(name = "collage_class")
-    val collageClass: String,
+    var collageClass: String,
 
     @ColumnInfo(name = "study_program")
-    val studyProgram: String,
+    var studyProgram: String,
+)
+
+data class StudentWithRelation(
+    @Embedded
+    var studentEntity: StudentEntity,
+
+    @Relation(
+        parentColumn = "nim",
+        entityColumn = "key",
+        associateBy = Junction(StudentJoinSchedule::class)
+    )
+    var listSchedule: List<ScheduleEntity> = emptyList()
 )

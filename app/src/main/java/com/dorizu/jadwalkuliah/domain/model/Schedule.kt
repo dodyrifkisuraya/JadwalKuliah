@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Schedule(
-    val key: Int,
+    val key: String,
 
     val classKey: String,
 

@@ -14,8 +14,8 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(private val useCase: IScheduleUseCase) : ViewModel() {
 
     init {
-        useCase.insertSchedule(Schedule(1, "R03-GKU", "BPA", "PBW", "08:00", "10:00"))
-        useCase.insertSchedule(Schedule(2, "R07-GKU", "IZM", "IMA", "13:00", "16:00"))
+        useCase.insertSchedule(Schedule("1", "R03-GKU", "BPA", "PBW", "08:00", "10:00"))
+        useCase.insertSchedule(Schedule("2", "R07-GKU", "IZM", "IMA", "13:00", "16:00"))
     }
 
     private val _listSchedule = MutableLiveData<ResultState<List<Schedule>>>()
