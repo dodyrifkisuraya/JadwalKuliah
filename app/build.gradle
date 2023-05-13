@@ -63,6 +63,11 @@ dependencies {
     //HILT
     implementation("com.google.dagger:hilt-android:2.44")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
+
+    //RXJAVA
+    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+    implementation "androidx.room:room-rxjava2:$room_version" //room rx java:
 }
 
 kapt {

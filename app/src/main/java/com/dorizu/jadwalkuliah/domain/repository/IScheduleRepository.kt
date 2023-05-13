@@ -1,27 +1,29 @@
 package com.dorizu.jadwalkuliah.domain.repository
 
+import com.dorizu.jadwalkuliah.data.ResultState
 import com.dorizu.jadwalkuliah.domain.model.*
+import io.reactivex.Flowable
 
 interface IScheduleRepository {
-    suspend fun insertStudent(student: Student)
+    fun insertStudent(student: Student)
 
-    suspend fun insertLecture(lecturer: Lecture)
+    fun insertLecture(lecturer: Lecture)
 
-    suspend fun insertCollageClass(collageClass: CollageClass)
+    fun insertCollageClass(collageClass: CollageClass)
 
-    suspend fun insertCourse(course: Course)
+    fun insertCourse(course: Course)
 
-    suspend fun insertSchedule(schedule: Schedule)
+    fun insertSchedule(schedule: Schedule)
 
-    suspend fun getAllStudent(): List<Student>
+    fun getAllStudent(): Flowable<ResultState<List<Student>>>
 
-    suspend fun getALlLecture(): List<Lecture>
+    fun getALlLecture(): Flowable<ResultState<List<Lecture>>>
 
-    suspend fun getALlClass(): List<CollageClass>
+    fun getALlClass(): Flowable<ResultState<List<CollageClass>>>
 
-    suspend fun getAllCourse(): List<Course>
+    fun getAllCourse(): Flowable<ResultState<List<Course>>>
 
-    suspend fun getAllSchedule(): List<Schedule>
+    fun getAllSchedule(): Flowable<ResultState<List<Schedule>>>
 
-    suspend fun getScheduleByClassStudentKey(classKey: String): List<Schedule>
+    fun getScheduleByClassStudentKey(classKey: String): Flowable<ResultState<List<Schedule>>>
 }

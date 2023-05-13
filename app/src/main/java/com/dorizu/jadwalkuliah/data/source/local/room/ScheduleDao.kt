@@ -2,41 +2,44 @@ package com.dorizu.jadwalkuliah.data.source.local.room
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.dorizu.jadwalkuliah.data.source.local.entity.*
+import io.reactivex.Completable
+import io.reactivex.Flowable
 
 @Dao
 interface ScheduleDao {
-    @Insert
-    fun insertStudent(student: StudentEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertStudent(student: StudentEntity): Completable
 
-    @Insert
-    fun insertLecture(lecturer: LecturerEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertLecture(lecturer: LecturerEntity): Completable
 
-    @Insert
-    fun insertCollageClass(collageClass: CollageClassEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertCollageClass(collageClass: CollageClassEntity): Completable
 
-    @Insert
-    fun insertCourse(course: CourseEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertCourse(course: CourseEntity): Completable
 
-    @Insert
-    fun insertSchedule(schedule: ScheduleEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertSchedule(schedule: ScheduleEntity): Completable
 
     @Query("SELECT * FROM student")
-    fun getAllStudent(): List<StudentEntity>
+    fun getAllStudent(): Flowable<List<StudentEntity>>
 
     @Query("SELECT * FROM lecture")
-    fun getALlLecture(): List<LecturerEntity>
+    fun getALlLecture(): Flowable<List<LecturerEntity>>
 
     @Query("SELECT * FROM collage_class")
-    fun getALlClass(): List<CollageClassEntity>
+    fun getALlClass(): Flowable<List<CollageClassEntity>>
 
     @Query("SELECT * FROM course")
-    fun getAllCourse(): List<CourseEntity>
+    fun getAllCourse(): Flowable<List<CourseEntity>>
 
     @Query("SELECT * FROM schedule")
-    fun getAllSchedule(): List<ScheduleEntity>
+    fun getAllSchedule(): Flowable<List<ScheduleEntity>>
 
     @Query("SELECT * FROM schedule WHERE class_key = :classKey")
-    fun getScheduleByClassStudentKey(classKey: String): List<ScheduleEntity>
+    fun getScheduleByClassStudentKey(classKey: String): Flowable<List<ScheduleEntity>>
 }

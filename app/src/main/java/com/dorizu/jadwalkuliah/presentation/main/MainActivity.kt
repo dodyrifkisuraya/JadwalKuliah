@@ -3,8 +3,8 @@ package com.dorizu.jadwalkuliah.presentation.main
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import com.dorizu.jadwalkuliah.R
 import com.dorizu.jadwalkuliah.databinding.ActivityMainBinding
+import com.dorizu.jadwalkuliah.presentation.adapter.ScheduleAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,6 +19,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupView()
+        getData()
+        observeData()
+    }
+
+    private fun getData() {
+        viewModel.getSchedule()
+    }
+
+    private fun observeData() {
+        viewModel.listSchedule.observe(this){
+            if (!it.data.isNullOrEmpty()) binding.rvSchedule.adapter = ScheduleAdapter(it.data)
+        }
     }
 
     private fun setupView() {
